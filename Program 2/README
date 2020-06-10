@@ -1,0 +1,119 @@
+Question 1:
+
+-My main class reads the input file as standard
+input. It saves off the number of elements for 
+each array and puts them into their respective
+arrays. It creates the shared memory segments, 
+one for quicksort and two for the binary merge.
+Next, it takes the array elements for quicksort
+and reads them into the shared memory segment. 
+It does the same for the binary merge, but only
+fills one of the memory segments with elements
+from both of the input arrays. Then, it converts
+variables needed to be passed to the quicksort 
+and merge classes into char buffers to be put
+into an array of arguments for execvp(). Using
+these arrays of arguments, the main process forks
+for quicksort and utilizes execvp() and then does
+the exact same for the binary merge. The quicksort
+algorithm converts the arguments back to integers
+and uses them to attach the shared memory, and get
+the left and right boudary indices to sort. It takes 
+the leftmost element as the pivot for when it
+partitions the elements to be less than and greater
+than the pivot. Then it forks to create two children,
+one for the left to pivot-1 side and pivot+1 to right
+side and sets up a call to execvp() for each child
+to run. Then, it continues like this as long as the left
+index is less than the right index and all of the 
+elements have been sorted. For the binary merge 
+algorithm, it converts the command-line arguments to 
+integers and attaches the shared memory to the process.
+Next, it creates m+n (number of elements in both arrays)
+processes and each of them assesses an element from 
+either array. If the index is less than the number 
+of elements in the first array it makes sure to print
+everything in relation to y[] and vice versa for 
+when it is greater. The final position that is determined
+for the output array utilizes the three situations from 
+the program specification. For determining what elements
+the value is between, it uses a modified binary search
+that returns the left index of the two elements it is 
+between. That index is then minused by the number of 
+elements in the first array minus 1 and then added to 
+the loop index in order to get the final postion. At 
+the end of the quicksort and the binary merge the shared
+memory segments are detached and removed. The main process
+waits for the children to complete and prints out
+the results from quicksort and binary merge and
+detaches and removes all three shared memory segments. 
+
+Question 2:
+
+-My program works because each class goes step by step to 
+complete each objective they need to complete. This is
+due to me planning out each class on paper and mapping out
+what they need to do and testing the algorithms I had for
+quicksort and binary merge as I went along. I made sure to
+test for end cases for both algorithms to ensure that it 
+works correctly.  
+
+Question 3:
+
+-Quicksort has one shared memory segment that is
+allocated as the number of array elements. This
+is used to pass to the child process that runs
+qsort in which the array in the shared memory
+is sorted.
+
+-There are two memory segments for the binary 
+merge. One memory segment is used to hold the 
+array elements from x[] and y[]. The second
+memory segment is used as the final output
+where the two arrays are merged.  
+
+Question 4:
+
+-In my program and the program specification, 
+there aren't any potential race conditions. 
+For the quicksort algorithm, the processes split 
+left and right based on the partition so there 
+is no way the processes have the chance to update 
+the shared memory at the same time. For the binary 
+merge algorithm, I have two memory segments. 
+One is for the elements of the two input arrays 
+and the other is for the final output. The final 
+output is the shared memory that gets changed 
+by the processes. Since the values in both arrays 
+are distinct, there will not be a chance that the 
+processes may overwrite eachother based on the position. 
+
+Question 5:
+
+-In order to construct an argument list that is
+passed from main to qsort, I converted the necessary
+variables to char buffers to put them into an 
+array of character pointers. In this array, I put
+the relative path of the quicksort class as the 
+first argument. Then, I put the shared memory id buffer, 
+0 for the left index, and the char buffer that holds 
+k-1 for the right index. Finally, I put a null 
+terminator as the last argument as it is necessary 
+to run execvp().  
+
+Question 6:
+
+-To make an argument list that gets passed
+from main to merge, I first made char buffers
+to convert variables to strings. These variables
+are the two id's for the shared memory segments,
+the number of elements in the x[] array, the number
+of elements in the y[] array. Next, I created an
+array of character pointers with the relative path to the
+merge class as the first argument. Then, I put the 
+the two buffers with the id's for the shared
+memory segments, the buffer for number of elements
+in x[], and the buffer for number of elements in 
+y[]. The last argument is a null terminator as execvp()
+requires the array to end with one in order to 
+work correctly.  

@@ -1,0 +1,83 @@
+Question 1:
+-To guarantee that only 3 elves ask questions,
+there is int flag, group, that is turned to 1
+when 3 elves are waiting to get their question
+answered. Once this flag is set to 1, the elves
+are able to signal, wakeUp, to Santa to trigger
+the event where he answers their questions. Once,
+Santa answers the questions, count for the number
+of elves is decremented until it hits zero. This
+signals an event to the other elves waiting so
+that they can build another group.
+
+Question 2:
+-No elves are allowed to leave until Santa 
+answers their questions because there is a int
+flag, answered, that is set to 1 by Santa when
+he answers the questions. This flag is checked
+by the elves in an if statement and if it the 
+flag is set to 0, the elves have to wait until
+Santa triggers the answers event three times,
+one for each elf. This is the only time the int
+flag is changed to 1. 
+
+Question 3:
+-To make sure only 3 elves are waiting for an
+answers and no other elves can cut in, there is
+a condition variable, releaseElves. This triggers
+the event for the elves that the group has gone
+back to work and it will allow elves that were
+waiting before that group to make another group.
+As stated in Question 1, if the int flag, group,
+is set to 1 then the elves will wait for event
+releaseElves and that will only get released
+when the elves have their questions answered.
+
+Question 4:
+-To guarantee that Santa only answers questions
+while he is not sleeping, Santa waits for an 
+event called wakeUp to be triggered by either
+the reindeer or the elves. Therefore, the elves
+make sure to signal this event before they ask
+the questions to wake him up. 
+
+Question 5:
+-To make sure that Santa is only awakened by
+the last reindeer, there is a counter inside
+the ReindeerBack procedure where it is incremented
+by 1. Once this counter is equal to the number
+of total reindeer then the int flag, lastReindeer,
+is switched to 1 so when that reindeer is in the
+ReindeerBack procedure it is the reindeer that
+sends the signal wakeUp to trigger the event
+where Santa wakes up.  
+
+Question 6:
+-To guarantee that Santa makes the reindeer and
+toy delivery a priority, the Santa thread first
+checks to see if the last reindeer has come back
+if he is awake. When Santa is alseep, the first 
+if statement he checks is if all of the reindeer 
+have come back. Only after these checks, does 
+Santa deal with the elves. 
+
+Question 7:
+-To make sure that none of the reindeer sneak off
+while Santa is attaching them to the sleigh, there
+is a condition variable, releaseReindeer, that the
+reindeer wait to be signaled in the FlyOff procedure.
+This releaseReindeer event is signaled only when the
+last reindeer is detached from the sleigh. And so, 
+the reindeer are locked into, or waiting, until
+they have completed the trip. 
+
+Question 8:
+-To guarantee that while Santa is attaching the 
+reindeer to the sleigh and delivering toys, the
+elves cannot ask him any questions there is a 
+condition variable, eBusy, that the elves wait to
+have triggered. This condition variable is signaled
+only once Santa has gone back to sleep and is in 
+the Sleep procedure which is after the delivery 
+is completely finished and all the reindeer
+have been detached from the sleigh. 

@@ -1,0 +1,40 @@
+Question 1:
+
+-In order to make sure that no students can 
+enter while the landlord is in the room and
+checking, I use an int pointer called checking
+that is 0 when landlord isn't checking and 1 
+when he/she is. When 1, this triggers binary 
+semaphores for enter and exit blocks so that 
+students cannot enter or exit while the landlord
+is checking in the GoToParty() method. Thus,
+students cannot enter or exit until the landlord
+signals those blocks
+
+Question 2:
+
+-I have used a notification semaphore for each
+case the landlord has to force students out of
+the room. One is lastStudent which is for when
+it is not the last check and there are too many
+students in the room. The CheckRoom() method
+waits for the signal from the last student leaving
+the room to leave the room. The other one is 
+studentsFinished which is for the last check of 
+the room when there are greater than zero students
+in the room. The CheckRoom() method waits for 
+the signal from the last student thread that 
+exits the room and terminates. This enforces
+the landlord to not leave until all of the
+students have left the room.
+
+Question 3:
+
+-With the semaphore I mentioned previously, 
+studentsFinished, for when the landlord forces
+out students during the last check. This
+semaphore will signal the landlord thread in
+the CheckRoom() method when all of the student
+threads have exited the room and terminated. 
+This makes it so that the last message is the
+final landlord message. 

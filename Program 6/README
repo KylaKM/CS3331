@@ -1,0 +1,66 @@
+Question 1:
+-My program starts off by creating the
+master thread. The master thread then 
+creates the P2 thread. The master thread
+sends all integers from 3 to n to P2 to
+send to other threads. Once the master
+thread has sent all the numbers to P2,
+it sends the end signal to P2 to pass
+along to other threads. When P2 receives
+numbers, it determines if it is a prime 
+number then it will create a new prime
+thread for it to memorize that number.
+The prime threads will receive numbers
+until they receive the end signal. Once
+the last thread receives the end signal,
+it will terminate which will cause its
+predecessor to terminate and it will go
+back to the master once P2 terminates. 
+Then, the master thread will print out
+the primes array.
+
+Question 2:
+-My program works as it ensures mutual 
+exclusion holds as each thread is given
+a different index to access their only
+shared variable, the primes array. 
+
+Question 3:
+-The master thread has two variables. The
+max which is the n the user inputs into 
+the program and a pointer to the primes
+array to pass along to the prime threads.
+The prime threads has three variables. The
+i is set to the index of thread, n is the
+number that the thread should memorize. 
+Finally, it has a pointer to the primes
+array so that it can add to the array.
+
+Question 4:
+-Since this whole program utilizes 
+message being passed down to each thread,
+asynchronous channels would ideally still
+work. 
+
+Question 5:
+-Once a number reaches the last thread,
+if it is not divisible by the last thread's
+prime, it must also be a prime number because
+it isn't a mulitple of another.
+
+Question 6:
+-The array elements are filled in a 
+consecutive way since they are put into
+the array as soon as the primes thread 
+starts so the array is being filled 
+one after another right along with the 
+creation of the prime threads.
+
+Question 7:
+-You do not need a mutex to protect the 
+global array Primes since each thread
+has a unique index passed down to it
+to access the array with. Thus, each thread
+is accessing its own index in the array
+and will not have the issue where they 
+change the value at the same index at any time.

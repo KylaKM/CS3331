@@ -1,0 +1,56 @@
+Question 1:
+
+-There are race conditions in this even-odd sort
+as all the threads have access to and can change
+the swap variable from false to true at any time. 
+
+Question 2:
+
+-Let's assume the opposite that the algorithm sorts
+the input correctly and takes more than n iterations
+to sort an array of n numbers. This means that if 
+we have an array of k elements then the algorithm
+should take more than k iterations to sort all 
+of the elements correctly. 
+
+-Let's say we have 5 elements: 1, 6, 2, 4, 5. 
+-Iteration 1:
+	Even: 
+		no swaps
+	Odd: 
+		swaps x[1] and x[2]
+	Results: 1 2 6 4 5
+-Iteration 2:
+	Even:
+		swaps x[2] and x[3]
+	Odd:
+		swaps x[3] and x[4]
+	Results: 1 2 4 5 6
+-Iteration 3:
+	Even:
+		no swaps
+	Odd:
+		no swaps
+-Final Results 1 2 4 5 6
+-Running through the algorithm shows that it takes
+less than 5 iterations to sort through all of the
+elements so our assumption must be wrong and the 
+algorithm does sort an array of n elements in no more 
+than n iterations.
+
+Question 3:
+
+-There would be many chances for race conditions having 
+the threads execute the even and odd passes on the same
+iteration. I don't know a solution that would allow for
+the threads to do the even and odd pass in the same iteration
+without race condtitions. 
+
+Question 4:
+
+-A solution to using just n/2 threads for all even
+passes and odd passes by using a couple semaphore variables
+as parameters in the thread constructor. The first semaphore
+will trigger the even passes and once the even passes go to 
+number of elements - 1 it will trigger the second semaphore to start
+to release the threads to start the odd index comparisons. 
